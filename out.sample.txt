@@ -1,0 +1,8 @@
+Next token is:  LEFT_PAREN | Next lexeme is (
+Next token is:       IDENT | Next lexeme is sum
+Next token is:      ADD_OP | Next lexeme is +
+Next token is:     INT_LIT | Next lexeme is 47
+Next token is: RIGHT_PAREN | Next lexeme is )
+Next token is:      DIV_OP | Next lexeme is /
+Next token is:       IDENT | Next lexeme is total
+Next token is:         EOF | Next lexeme is EOF
