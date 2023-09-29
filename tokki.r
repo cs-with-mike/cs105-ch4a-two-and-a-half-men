@@ -77,6 +77,22 @@ lookup <- function(ch) {
 
 #/*****************************************************/ 
 #/* getChar - a function to get the next character of 
+getChar <- function() {
+  # This might have to change depending on the Data object Eli uses
+  nextChar <- readChar(in_fp, nchars = 1)
+  
+  if (nextChar != -1) {
+    if (isAlpha(nextChar)) {
+      charClass <<- LETTER
+    } else if (is.numeric(as.character(nextChar))) {
+      charClass <<- DIGIT
+    } else {
+      charClass <<- UNKNOWN
+    }
+  } else {
+    charClass <<- EOF
+  }
+}
 
 #/*****************************************************/ 
 #getNonBlank - a function to call getChar until it returns a non-whitespace character
