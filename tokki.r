@@ -83,6 +83,7 @@ lex <- function() {
   lexeme <<- c()
   getNonBlank()
   
+  
   switch(charClass,
          LETTER = {
            getChar()
