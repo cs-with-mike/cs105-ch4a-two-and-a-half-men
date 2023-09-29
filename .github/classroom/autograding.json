@@ -8,6 +8,26 @@
       "output": "",
       "comparison": "exact",
       "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 1: Single integer literal",
+      "setup": "chmod 777 ./tokki.sh; git clone https://github.com/7imeout/GradingResources.git",
+      "run": "./tokki.sh ./GradingResources/cs105/01_singleint.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/01_singleint.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 5
+    },
+    {
+      "name": "TC 2: Sample given in the book",
+      "setup": "chmod 777 ./tokki.sh; git clone https://github.com/7imeout/GradingResources.git",
+      "run": "./tokki.sh ./GradingResources/cs105/02_sample.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/02_sample.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
       "points": 5
     }
   ]
