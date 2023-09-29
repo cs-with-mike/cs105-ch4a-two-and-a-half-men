@@ -1,7 +1,7 @@
 #!/bin/bash
 # Authors:
 #  - Logan Towne, ltowne@westmont.edu
-#  - Thomas McTankengine, tmctankengine@westmont.edu
+#  - Landon Amaral, lamaral@westmont.edu
 #  - Ovenly McEasybake, omceasybake@westmont.edu
 
 # Run any commands necessary to set up your language's runtime environment here.
