@@ -28,22 +28,49 @@
 #/* getChar - a function to get the next character of 
 
 #/*****************************************************/ 
-#/* getNonBlank - a function to call getChar until it returns a non-whitespace character */ 
-
+#getNonBlank - a function to call getChar until it returns a non-whitespace character
+getNonBlank <- function() {
+  while (charClass == "SPACE") {
+    getChar()
+  }
+}
 #/ *****************************************************/ 
-#/* lex - a simple lexical analyzer for arithmetic expressions */ 
-
-#/* Parse identifiers */ 
-
-#/* Parse integer literals */ 
-
-#/* Parentheses and operators */ 
-
-#/* EOF */ 
-
-#/* End of switch */ 
-
-#/* End of function lex */
+#lex - a simple lexical analyzer for arithmetic expressions
+lex <- function() {
+  lexLen <<- 0
+  getNonBlank()
+  switch(charClass,
+         LETTER = {
+           addChar()
+           getChar()
+           while (charClass == "LETTER" || charClass == "DIGIT") {
+             addChar()
+             getChar()
+           }
+           nextToken <<- "IDENT"
+         },
+         DIGIT = {
+           addChar()
+           getChar()
+           while (charClass == "DIGIT") {
+             addChar()
+             getChar()
+           }
+           nextToken <<- "INT_LIT"
+         },
+         UNKNOWN = {
+           lookup(nextChar)
+           getChar()
+         },
+         EOF = {
+           nextToken <<- "EOF"
+           lexeme <<- c("E", "O", "F")
+         }
+  )
+  
+  cat(paste("Next token is:", nextToken, ", Next lexeme is ", paste(lexeme, collapse = ""), "\n"))
+  return(nextToken)
+}
 
 
 
