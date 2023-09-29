@@ -2,23 +2,13 @@
   "tests": [
     {
       "name": "TC 0: Empty case",
-      "setup": "./tokki.sh ./GradingResources/cs105/00_empty.test.txt && python3 tokki.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
-      "run": "./tokki.sh ./GradingResources/cs105/00_empty.test.txt && python3 tokki.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
-      "input": "",
-      "output": "",
-      "comparison": "exact",
-      "timeout": 1,
-      "points": null
-    },
-    {
-      "name": "TC 1: Single integer literal",
       "setup": "chmod 777 ./tokki.sh; git clone https://github.com/7imeout/GradingResources.git",
-      "run": "./tokki.sh ./GradingResources/cs105/01_singleint.test.txt && python3 tokki.pyc ./GradingResources/cs105/01_singleint.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "run": "./tokki.sh ./GradingResources/cs105/00_empty.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
       "input": "",
       "output": "",
       "comparison": "exact",
       "timeout": 1,
-      "points": null
+      "points": 5
     }
   ]
 }
