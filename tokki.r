@@ -57,6 +57,10 @@ lookup <- function(ch) {
            print("addChar...")
            nextToken <<- DIV_OP
          },
+         '=' = {
+           print("addChar...")
+           nextToken <<- ASSIGN_OP
+         },
          default = {
            print("addChar...")
            nextToken <<- EOF
@@ -80,11 +84,11 @@ addChar <- function() {
 getChar <- function() {
   # Open the file connection if it's not already open
   if (is.null(in_fp)) {
-    in_fp <- file("sample.tk", "r")
+    in_fp <<- file("sample.tk", "r")
   }
   
   # Read a single character from the file connection
-  nextChar <- readChar(in_fp, 1)
+  nextChar <<- readChar(in_fp, 1)
   
   if (nextChar != "") {
     if (nextChar %in% c('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')) {
@@ -109,7 +113,7 @@ getNonBlank <- function() {
 #lex - a simple lexical analyzer for arithmetic expressions
 lex <- function() {
   lexLen <<- 0
-  lexeme <- character(100)  # Reset lexeme
+  lexeme <<- character(100)  # Reset lexeme
   
   getNonBlank()
   
@@ -138,7 +142,7 @@ lex <- function() {
          },
          EOF = {
            nextToken <<- EOF
-           lexeme <<- "EOF"
+           lexeme[1] <<- "EOF"
          }
   )
   
