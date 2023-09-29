@@ -5,7 +5,7 @@ Chapter 4 Assignment A
 ## Author Information
 - Logan Towne, ltowne@westmont.edu
 - Landon Amaral, lamaral@westmont.edu
-- **Ovenly McEasybake** omceasybake@westmont.edu
+- Eli
 
 ## Overview
 In this assignment we are going to use our chosen language R to make a syntax analyzer based on the code in the textbook thats in c++. 
