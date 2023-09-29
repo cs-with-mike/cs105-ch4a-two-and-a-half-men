@@ -151,7 +151,7 @@ lex <- function() {
 if (file.exists("sample.tk")) {
   in_fp <- file("sample.tk", "r")
   char_iterator <- readLines(in_fp, warn = FALSE)
-  char_iteraotr <- strsplit(char_iterator, "")[[1]]
+  char_iterator <- strsplit(char_iterator, "")[[1]]
   
   getChar()
   repeat {
