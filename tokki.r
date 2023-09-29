@@ -144,15 +144,24 @@ lex <- function() {
   return(nextToken)
 }
 
+#MAIN part
+#input_string <- "(sum + 47) / total"
+#char_iterator <- strsplit(input_string, "")[[1]]
 
-input_string <- "(sum + 47) / total"
-
-char_iterator <- strsplit(input_string, "")[[1]]
-
-getChar()
-repeat {
-  if (lex() == EOF) {
-    break
+if (file.exists("sample.tk")) {
+  in_fp <- file("sample.tk", "r")
+  char_iterator <- readLines(in_fp, warn = FALSE)
+  char_iteraotr <- strsplit(char_iterator, "")[[1]]
+  
+  getChar()
+  repeat {
+    if (lex() == EOF) {
+      break
+    }
   }
+  close(in_fp)
+} else {
+  cat("ERROR - cannot open sample.tk\n")
 }
+
 
