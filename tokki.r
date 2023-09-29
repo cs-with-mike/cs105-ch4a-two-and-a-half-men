@@ -1,66 +1,59 @@
-#/* front.c - a lexical analyzer system for simple arithmetic expressions */ 
+#front.c - a lexical analyzer system for simple arithmetic expressions
 
-#/* Global declarations */ 
+#Global declarations
 
 # Variables
-charClass <- NULL  # Initialize to NULL
+charClass <- "" 
 lexeme <- character(100)  # Initialize as a character vector of length 100
-nextChar <- NULL  # Initialize to NULL
-lexLen <- NULL  # Initialize to NULL
-token <- NULL  # Initialize to NULL
-nextToken <- NULL  # Initialize to NULL
-in_fp <- NULL  # Initialize to NULL
+nextChar <- ""  
+lexLen <- 0
+token <- 0
+nextToken <- 0  
+in_fp <- NULL  
 
 # Character classes
-LETTER <- 0
-DIGIT <- 1
-UNKNOWN <- 99
+LETTER <- "LETTER"
+DIGIT <- "DIGIT"
+UNKNOWN <- "UNKNOWN"
 
 # Token codes
-INT_LIT <- 10
-IDENT <- 11
-ASSIGN_OP <- 20
-ADD_OP <- 21
-SUB_OP <- 22
-MULT_OP <- 23
-DIV_OP <- 24
-LEFT_PAREN <- 25
-RIGHT_PAREN <- 26
-EOF <- -1
+INT_LIT <- "INT_LIT"
+IDENT <- "IDENT"
+ASSIGN_OP <- "ASSIGN_OP"
+ADD_OP <- "ADD_OP"
+SUB_OP <- "SUB_OP"
+MULT_OP <- "MULT_OP"
+DIV_OP <- "DIV_OP"
+LEFT_PAREN <- "LEFT_PAREN"
+RIGHT_PAREN <- "RIGHT_PAREN"
+EOF <- "EOF"
 
-#/******************************************************/ 
-#/* main driver */ 
+#/lookup - a function to lookup operators and parentheses and return the token
 
-#/* Open the input data file and process its contents */ 
-
-#/*****************************************************/ 
-#/* lookup - a function to lookup operators and parentheses and return the token */ 
-
-# Look up table
-# Returns null if not here meaning the file is empty
+# Look up table WORKS
 lookup <- function(ch) {
   switch(ch,
-         "(" = {
+         '(' = {
            print("addChar...")
            nextToken <<- LEFT_PAREN
          },
-         ")" = {
+         ')' = {
            print("addChar...")
            nextToken <<- RIGHT_PAREN
          },
-         "+" = {
+         '+' = {
            print("addChar...")
            nextToken <<- ADD_OP
          },
-         "-" = {
+         '-' = {
            print("addChar...")
            nextToken <<- SUB_OP
          },
-         "*" = {
+         '*' = {
            print("addChar...")
            nextToken <<- MULT_OP
          },
-         "/" = {
+         '/' = {
            print("addChar...")
            nextToken <<- DIV_OP
          },
@@ -72,20 +65,32 @@ lookup <- function(ch) {
   return(nextToken)
 }
 
-#/*****************************************************/ 
-#/* addChar - a function to add nextChar to lexeme */
+#addChar - a function to add nextChar to lexeme WORKS
+addChar <- function() {
+  if (lexLen <= 98) {
+    lexeme[lexLen + 1] <- nextChar
+    lexLen <<- lexLen + 1
+    lexeme[lexLen + 1] <- ""
+  } else {
+    stop("Error - lexeme is too long")
+  }
+}
 
-#/*****************************************************/ 
-#/* getChar - a function to get the next character of 
+#getChar - a function to get the next character of input and determine its character class WORKS
 getChar <- function() {
-  # This might have to change depending on the Data object Eli uses
-  nextChar <- readChar(in_fp, nchars = 1)
+  # Open the file connection if it's not already open
+  if (is.null(in_fp)) {
+    in_fp <- file("sample.tk", "r")
+  }
   
-  if (nextChar != -1) {
-    if (isAlpha(nextChar)) {
-      charClass <<- LETTER
-    } else if (is.numeric(as.character(nextChar))) {
+  # Read a single character from the file connection
+  nextChar <- readChar(in_fp, 1)
+  
+  if (nextChar != "") {
+    if (nextChar %in% c('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')) {
       charClass <<- DIGIT
+    } else if (grepl("[A-Za-z]", nextChar)) {
+      charClass <<- LETTER
     } else {
       charClass <<- UNKNOWN
     }
@@ -94,49 +99,67 @@ getChar <- function() {
   }
 }
 
-#/*****************************************************/ 
-#getNonBlank - a function to call getChar until it returns a non-whitespace character
+#getNonBlank - a function to call getChar until it returns a non-whitespace character SHOULDWORK
 getNonBlank <- function() {
-  while (charClass == "SPACE") {
+  while (grepl("\\s", nextChar)) {
     getChar()
   }
 }
-#/ *****************************************************/ 
+
 #lex - a simple lexical analyzer for arithmetic expressions
 lex <- function() {
   lexLen <<- 0
+  lexeme <- character(100)  # Reset lexeme
+  
   getNonBlank()
+  
   switch(charClass,
          LETTER = {
            addChar()
            getChar()
-           while (charClass == "LETTER" || charClass == "DIGIT") {
+           while (charClass == LETTER || charClass == DIGIT) {
              addChar()
              getChar()
            }
-           nextToken <<- "IDENT"
+           nextToken <<- IDENT
          },
          DIGIT = {
            addChar()
            getChar()
-           while (charClass == "DIGIT") {
+           while (charClass == DIGIT) {
              addChar()
              getChar()
            }
-           nextToken <<- "INT_LIT"
+           nextToken <<- INT_LIT
          },
          UNKNOWN = {
            lookup(nextChar)
            getChar()
          },
          EOF = {
-           nextToken <<- "EOF"
-           lexeme <<- c("E", "O", "F")
+           nextToken <<- EOF
+           lexeme <<- "EOF"
          }
   )
   
   cat(paste("Next token is:", nextToken, ", Next lexeme is ", paste(lexeme, collapse = ""), "\n"))
   return(nextToken)
+}
+
+
+# main driver *
+#Open the input data file and process its contents 
+if (file.exists("sample.tk")) {
+  in_fp <- file("sample.tk", "r")
+  getChar()
+  repeat {
+    if (lex() == EOF) {
+      break
+    }
+  }
+  close(in_fp)
+} else {
+  cat("ERROR - cannot open front.in\n")
 }
 
 
