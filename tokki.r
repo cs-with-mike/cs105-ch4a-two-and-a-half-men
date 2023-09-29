@@ -1,7 +1,8 @@
+#note, completely redid length system to make more readable in R
+
 charClass <- ""
-lexeme <- character(100)  
+lexeme <- c() 
 nextChar <- ""
-lexLen <- 0
 token <- 0
 nextToken <- 0
 in_fp <- NULL  
@@ -52,13 +53,7 @@ lookup <- function(ch) {
 }
 
 addChar <- function() {
-  if (lexLen <= 98) {
-    lexeme[lexLen + 1] <- nextChar
-    lexLen <<- lexLen + 1
-    lexeme[lexLen + 1] <- ""
-  } else {
-    stop("Error - lexeme is too long")
-  }
+  lexeme[(length(lexeme)) + 1] <- nextChar
 }
 
 getChar <- function() {
@@ -85,18 +80,16 @@ getNonBlank <- function() {
 }
 
 lex <- function() {
-  lexLen <<- 0
-  lexeme <<- character(100)  
-  
+  lexeme <<- c()
   getNonBlank()
   
   switch(charClass,
          LETTER = {
-           addChar()
            getChar()
+           addChar()
            while (charClass == LETTER || charClass == DIGIT) {
-             addChar()
              getChar()
+             addChar()
            }
            nextToken <<- IDENT
          },
@@ -133,7 +126,6 @@ lex <- function() {
     EOF = "EOF",
     UNKNOWN = "UNKNOWN"
   )
-  
   cat(paste("Next token is:", token_name, "| Next lexeme is", paste(lexeme, collapse = ""), "\n"))
   return(nextToken)
 }
@@ -141,6 +133,7 @@ lex <- function() {
 
 input_string <- "(sum + 47) / total"
 
+#not here
 char_iterator <- strsplit(input_string, "")[[1]]
 
 getChar()
