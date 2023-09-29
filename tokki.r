@@ -10,6 +10,7 @@ in_fp <- NULL
 LETTER <- "LETTER"
 DIGIT <- "DIGIT"
 UNKNOWN <- "UNKNOWN"
+SPACE <- "SPACE"
 
 INT_LIT <- "INT_LIT"
 IDENT <- "IDENT"
@@ -54,66 +55,69 @@ lookup <- function(ch) {
   return(nextToken)
 }
 
-# Sets the next character to be inspected to nextChar
-
-addChar <- function() {
-  lexeme[(length(lexeme)) + 1] <- nextChar
+whatClass <- function(x) {
+  if (grepl("^\\s*$", x)) {
+    return(SPACE)
+  }else if (grepl("\\d+", x)) {
+    return(DIGIT)
+  } else if (grepl("[A-Za-z]", x)) {
+    return(LETTER)
+  } else {
+    return(UNKNOWN)
+  }
 }
 
 # Sets charClass, which is essentially the token, unless UNKNOWN which then needs lookup()
 
+#set current charClass and nextChar, recursively set nextChar as long as class matches?
 getChar <- function() {
   if (length(char_iterator) > 0) {
+    if(grepl("^\\s*$", char_iterator[1])){
+      char_iterator <<- char_iterator[-1]
+    }
+    
     nextChar <<- char_iterator[1]
     char_iterator <<- char_iterator[-1]
-    if (nextChar %in% c('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')) {
+    
+    #go through iterator and combine until all similar are same thing
+    while(whatClass(nextChar) == whatClass(char_iterator[1])) {
+      nextChar <<- paste0(nextChar, char_iterator[1])
+      char_iterator <<- char_iterator[-1]
+    }
+    
+    if (grepl("\\d+", nextChar)) {
       charClass <<- DIGIT
     } else if (grepl("[A-Za-z]", nextChar)) {
       charClass <<- LETTER
     } else {
       charClass <<- UNKNOWN
     }
+
   } else {
     charClass <<- EOF
     nextChar <<- ""
   }
 }
 
-# Returns the next non blank
-
-getNonBlank <- function() {
-  while (grepl("\\s", nextChar)) {
-    getChar()
-  }
-}
 
 # Loop that iterates through string to set token and lexeme of characters, then prints as statement.
 
 lex <- function() {
-  lexeme <<- c()
-  getNonBlank()
-  
+
   switch(charClass,
          LETTER = {
-           getChar()
-           addChar()
-           while (charClass == LETTER || charClass == DIGIT) {
-             getChar()
-             addChar()
-           }
            nextToken <<- IDENT
+           lexeme[1] <<- nextChar
+           getChar()
          },
          DIGIT = {
-           addChar()
-           getChar()
-           while (charClass == DIGIT) {
-             addChar()
-             getChar()
-           }
+           lexeme[1] <<- nextChar
            nextToken <<- INT_LIT
+           getChar()
          },
          UNKNOWN = {
            lookup(nextChar)
+           lexeme[1] <<- nextChar
            getChar()
          },
          EOF = {
@@ -143,7 +147,6 @@ lex <- function() {
 
 input_string <- "(sum + 47) / total"
 
-#not here
 char_iterator <- strsplit(input_string, "")[[1]]
 
 getChar()
@@ -152,3 +155,4 @@ repeat {
     break
   }
 }
+
