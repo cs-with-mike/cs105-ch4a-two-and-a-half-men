@@ -8,10 +8,14 @@ Chapter 4 Assignment A
 - **Ovenly McEasybake** omceasybake@westmont.edu
 
 ## Overview
-(TODO: Describe in a sentence or two what this assignment is.)
+In this assignment we are going to use our chosen language R to make a syntax analyzer based on the code in the textbook thats in c++. 
+The first step is to convert the code one to one, and then try and use our chosen languages features to make it more efficient. 
 
 ## Design Notes
-(TODO: Write any notable design decisions you made as you were working on this assignment.)
+Some notable design decisions are: 
+
+When converting the switch statements in c++ to R we could use a lookup table or if statements, 
+so we chose a lookup table thinking they would be faster and easier to convert over. 
 
 ## Lessons Learned
 (TODO: Describe any lessons learned while you were working on this assignment.)
