@@ -22,6 +22,8 @@ LEFT_PAREN <- "LEFT_PAREN"
 RIGHT_PAREN <- "RIGHT_PAREN"
 EOF <- "EOF"
 
+# if the lexeme is an UNKNOWN token, it passes it through to lookup() for it to be categorized as an arithmetic token or EOF (End of File)
+
 lookup <- function(ch) {
   switch(ch,
          '(' = {
@@ -52,9 +54,13 @@ lookup <- function(ch) {
   return(nextToken)
 }
 
+# Sets the next character to be inspected to nextChar
+
 addChar <- function() {
   lexeme[(length(lexeme)) + 1] <- nextChar
 }
+
+# Sets charClass, which is essentially the token, unless UNKNOWN which then needs lookup()
 
 getChar <- function() {
   if (length(char_iterator) > 0) {
@@ -73,16 +79,19 @@ getChar <- function() {
   }
 }
 
+# Returns the next non blank
+
 getNonBlank <- function() {
   while (grepl("\\s", nextChar)) {
     getChar()
   }
 }
 
+# Loop that iterates through string to set token and lexeme of characters, then prints as statement.
+
 lex <- function() {
   lexeme <<- c()
   getNonBlank()
-  
   
   switch(charClass,
          LETTER = {
