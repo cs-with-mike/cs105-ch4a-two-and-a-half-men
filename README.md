@@ -18,6 +18,8 @@ Some notable design decisions are:
 When converting the switch statements in c++ to R we could use a lookup table or if statements, 
 so we chose a lookup table thinking they would be faster and easier to convert over. 
 
+We decided to remove the predefined lexeme list of 100 because R can operate on dynamic list lengths. That allowed us to reduce a lot of list length management.
+
 ## Lessons Learned
 Lesson #1
     It isn't as straightforward as we expected to be able to transcode logic from C++ to R. Because the two languages were designed with different goals in mind, the functionality and capability greatly impact how the logic operates. 
