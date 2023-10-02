@@ -16,4 +16,4 @@ R
 echo "Running Tokki ... output file is out.txt"
 
 # This will run out tokki file and output it on out.txt
-Rscript tokki.r
+Rscript tokki.r > out.txt
