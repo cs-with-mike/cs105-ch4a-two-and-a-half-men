@@ -1,7 +1,4 @@
 #note, completely redid length system to make more readable in R
-
-sink("./out.txt", append = T) # Start recording console
-
 charClass <- ""
 lexeme <- c() 
 nextChar <- ""
@@ -162,7 +159,6 @@ if (file.exists("sample.tk")) {
     }
   }
   close(in_fp)
-  sink() # Stop recording console
 } else {
   cat("ERROR - cannot open sample.tk\n")
 }
