@@ -143,12 +143,19 @@ lex <- function() {
   return(nextToken)
 }
 
-#MAIN part
-#input_string <- "(sum + 47) / total"
-#char_iterator <- strsplit(input_string, "")[[1]]
+# Getting command line arguements
+args <- commandArgs(trailingOnly=TRUE)
 
-if (file.exists("sample.tk")) {
-  in_fp <- file("sample.tk", "r")
+# test if there is at least one argument: if not, return an error
+if (length(args)==0) {
+  stop("At least one argument must be supplied (input file).n", call.=FALSE)
+} else if (length(args)==1) {
+  # default output file
+  args[2] = "out.txt"
+}
+
+if (file.exists(args[1])) {
+  in_fp <- file(args[1], "r")
   char_iterator <- readLines(in_fp, warn = FALSE)
   char_iterator <- strsplit(char_iterator, "")[[1]]
   
@@ -160,5 +167,5 @@ if (file.exists("sample.tk")) {
   }
   close(in_fp)
 } else {
-  cat("ERROR - cannot open sample.tk\n")
+  cat("ERROR - cannot open file\n")
 }
