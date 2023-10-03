@@ -155,7 +155,7 @@ if (length(args)==0) {
 }
 
 if (file.exists(args[1])) {
-  in_fp <- file(args[1], "r")
+  in_fp <- args[1]
   char_iterator <- readLines(in_fp, warn = FALSE)
   char_iterator <- strsplit(char_iterator, "")[[1]]
   
