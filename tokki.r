@@ -1,4 +1,5 @@
 #note, completely redid length system to make more readable in R
+
 charClass <- ""
 lexeme <- c() 
 nextChar <- ""
@@ -91,7 +92,7 @@ getChar <- function() {
     } else {
       charClass <<- UNKNOWN
     }
-    
+
   } else {
     charClass <<- EOF
     nextChar <<- ""
@@ -102,7 +103,7 @@ getChar <- function() {
 # Loop that iterates through string to set token and lexeme of characters, then prints as statement.
 
 lex <- function() {
-  
+
   switch(charClass,
          LETTER = {
            nextToken <<- IDENT
@@ -143,19 +144,14 @@ lex <- function() {
   return(nextToken)
 }
 
-# Getting command line arguements
-args <- commandArgs(trailingOnly=TRUE)
+#MAIN part
+#input_string <- "(sum + 47) / total"
+#char_iterator <- strsplit(input_string, "")[[1]]
 
-# test if there is at least one argument: if not, return an error
-if (length(args)==0) {
-  stop("At least one argument must be supplied (input file).n", call.=FALSE)
-} else if (length(args)==1) {
-  # default output file
-  args[2] = "out.txt"
-}
+args <- commandArgs(trailingOnly = TRUE)
 
 if (file.exists(args[1])) {
-  in_fp <- args[1]
+  in_fp <- file(args, "r")
   char_iterator <- readLines(in_fp, warn = FALSE)
   char_iterator <- strsplit(char_iterator, "")[[1]]
   
@@ -167,5 +163,6 @@ if (file.exists(args[1])) {
   }
   close(in_fp)
 } else {
-  cat("ERROR - cannot open file\n")
+  cat("ERROR - cannot open", args[1], "\n")
 }
+
