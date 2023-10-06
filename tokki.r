@@ -79,7 +79,7 @@ getChar <- function() {
     nextChar <<- char_iterator[1]
     char_iterator <<- char_iterator[-1]
     
-    if (length(char_iterator) > 0) {
+    
     #go through iterator and combine until all similar are same thing
     while(whatClass(nextChar) != UNKNOWN && whatClass(nextChar) == whatClass(char_iterator[1])) {
       nextChar <<- paste0(nextChar, char_iterator[1])
@@ -93,7 +93,7 @@ getChar <- function() {
       charClass <<- LETTER
     } else {
       charClass <<- UNKNOWN
-    }}
+    }
 
   } else {
     charClass <<- EOF
