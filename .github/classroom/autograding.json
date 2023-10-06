@@ -59,6 +59,26 @@
       "comparison": "exact",
       "timeout": 1,
       "points": null
+    },
+    {
+      "name": "TC 6: [Parser] Empty case",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/00_empty.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt; rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 7: [Parser] Single integer literal",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/01_singleint.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/01_singleint.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt; rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
     }
   ]
 }
