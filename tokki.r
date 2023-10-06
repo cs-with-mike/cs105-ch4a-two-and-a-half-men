@@ -80,7 +80,7 @@ getChar <- function() {
     char_iterator <<- char_iterator[-1]
     
     #go through iterator and combine until all similar are same thing
-    while(whatClass(nextChar) == whatClass(char_iterator[1])) {
+    while(whatClass(nextChar) != UNKNOWN && whatClass(nextChar) == whatClass(char_iterator[1])) {
       nextChar <<- paste0(nextChar, char_iterator[1])
       char_iterator <<- char_iterator[-1]
       if (length(char_iterator) == 0) break
@@ -107,8 +107,8 @@ lex <- function() {
 
   switch(charClass,
          LETTER = {
-           nextToken <<- IDENT
            lexeme[1] <<- nextChar
+           nextToken <<- IDENT
            getChar()
          },
          DIGIT = {
