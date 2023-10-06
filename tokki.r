@@ -147,24 +147,30 @@ lex <- function() {
 }
 
 #MAIN part
-#input_string <- "(sum + 47) / total"
-#char_iterator <- strsplit(input_string, "")[[1]]
-
 args <- commandArgs(trailingOnly = TRUE)
 
 if (file.exists(args[1])) {
   in_fp <- file(args, "r")
-  char_iterator <- readLines(in_fp, warn = FALSE)
-  char_iterator <- strsplit(char_iterator, "")[[1]]
   
-  getChar()
-  repeat {
-    if (lex() == EOF) {
-      break
+  # Checking if the file has information in it
+  if(file.size(args[1]) == 0){
+    cat("Next token is: EOF | Next lexeme is EOF")
+    
+  # Run the lexer if it does
+  }else{
+    cat("")
+    char_iterator <- readLines(in_fp, warn = FALSE)
+    char_iterator <- strsplit(char_iterator, "")[[1]]
+    
+    getChar()
+    repeat {
+      if (lex() == EOF) {
+        break
+      }
     }
   }
+  
   close(in_fp)
 } else {
-  cat("ERROR - cannot open", args[1], "\n")
+  cat("ERROR - cannot open file:\t", args[1], "\n")
 }
-
