@@ -23,6 +23,67 @@ LEFT_PAREN <- "LEFT_PAREN"
 RIGHT_PAREN <- "RIGHT_PAREN"
 EOF <- "EOF"
 
+
+# Part B Functions
+# NEW STUFF
+
+
+# factor
+factor <- function() {
+  cat("Enter <factor>\n")
+  
+  if (nextToken == "IDENT" || nextToken == "INT_LIT") {
+    # Get the next token
+    lex()
+  } else {
+    if (nextToken == "LEFT_PAREN") {
+      lex()
+      expr()
+      if (nextToken == "RIGHT_PAREN") {
+        lex()
+      } else {
+        error("Error: Expected right parenthesis")
+      }
+    } else {
+      error("Error: Invalid token")
+    }
+  }
+  
+  cat("Exit <factor>\n")
+}
+
+# term
+term <- function() {
+  cat("Enter <term>\n")
+  
+  # First Factor
+  factor()
+  
+  while (nextToken == "MULT_OP" || nextToken == "DIV_OP") {
+    lex()
+    factor()
+  }
+  
+  cat("Exit <term>\n")
+}
+
+# expr
+expr <- function() {
+  cat("Enter <expr>\n")
+  
+  # First term
+  term()
+  
+  while (nextToken == "ADD_OP" || nextToken == "SUB_OP") {
+    lex()
+    term()
+  }
+  
+  cat("Exit <expr>\n")
+}
+
+# Part A
+
 # if the lexeme is an UNKNOWN token, it passes it through to lookup() for it to be categorized as an arithmetic token or EOF (End of File)
 
 lookup <- function(ch) {
@@ -124,6 +185,7 @@ lex <- function() {
       nextToken <<- EOF
       lexeme[1] <<- "EOF"
     }
+  
   )
 
   token_name <- switch(nextToken,
@@ -140,6 +202,7 @@ lex <- function() {
     UNKNOWN = "UNKNOWN"
   )
   cat(paste("Next token is:", token_name, "| Next lexeme is", paste(lexeme, collapse = ""), "\n"))
+  expr()
   return(nextToken)
 }
 
@@ -155,7 +218,6 @@ if (file.exists(args[1])) {
 
     # Run the lexer if it does
   } else {
-    cat("")
     char_iterator <- readLines(in_fp, warn = FALSE)
     char_iterator <- strsplit(char_iterator, "")[[1]]
 
