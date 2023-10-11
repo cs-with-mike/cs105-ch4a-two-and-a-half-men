@@ -1,12 +1,10 @@
-# note, completely redid length system to make more readable in R
-
 charClass <- ""
 lexeme <- c()
 nextChar <- ""
 token <- 0
 nextToken <- 0
 in_fp <- NULL
-indentNum <- 1
+depth <- 0
 
 LETTER <- "LETTER"
 DIGIT <- "DIGIT"
@@ -25,30 +23,34 @@ RIGHT_PAREN <- "RIGHT_PAREN"
 EOF <- "EOF"
 
 
-
-detailed_print <- function(entering) {
-  # If it is entering a derivation, increment the indent for formatting and print out the ">"
-    if(entering){
-      for(i in 1:indentNum){
-        cat(">")
-      }
-    # Otherwise, you're leaving a derivation
-    }else{
-      for(i in 1:indentNum){
-        cat("<")
-      }
-    }
-  
-}
-
 # Part B Functions
 # NEW STUFF
+
+# This is a functon meant to print out the depth and derivation of each line
+detailed_print <- function(entering, depth_change) {
+  
+  # We want to increase if it's a positive change
+  if(depth_change > 0){depth <<- depth + depth_change}
+  
+  for(i in 1:depth){
+    if(entering){
+      # If it is entering a derivation, increment the indent for formatting and print out the ">"
+      cat(">")
+    }else{
+      # Otherwise, you're leaving a derivation
+      cat("<")
+    }
+  }
+  
+  # We should decrease only after printing to follow the formatting
+  if(depth_change < 0){depth <<- depth + depth_change}
+}
 
 
 # factor
 factor <- function() {
   
-  detailed_print(TRUE)
+  detailed_print(TRUE, 1)
   cat(" factor\n")
   
   if (nextToken == "IDENT" || nextToken == "INT_LIT") {
@@ -68,7 +70,7 @@ factor <- function() {
     }
   }
   
-  detailed_print(FALSE)
+  detailed_print(FALSE, -1)
   
   cat(" factor\n")
   
@@ -77,7 +79,7 @@ factor <- function() {
 # term
 term <- function() {
   
-  detailed_print(TRUE)
+  detailed_print(TRUE, 1)
   cat(" term\n")
   
   # First Factor
@@ -88,14 +90,14 @@ term <- function() {
     factor()
   }
   
-  detailed_print(FALSE)
+  detailed_print(FALSE, -1)
   cat(" term\n")
 }
 
 # expr
 expr <- function() {
   
-  detailed_print(TRUE)
+  detailed_print(TRUE, 1)
   cat(" expr\n")
   
   # First term
@@ -106,7 +108,7 @@ expr <- function() {
     term()
   }
   
-  detailed_print(FALSE)
+  detailed_print(FALSE, -1)
   cat(" expr\n")
 }
 
@@ -230,13 +232,13 @@ lex <- function() {
     UNKNOWN = "UNKNOWN"
   )
   
-  # Formatting printing to the console
-  for(i in 0:indentNum){
-    cat("=")
+  # This is also for formatting the output
+  if(depth != 0){
+    for(i in 1:depth){cat("=")}
   }
+  # Printing out the tokens
   cat(sprintf(" %s [ %s ]\n", token_name, paste(lexeme, collapse = "")))
   expr()
-  
   return(nextToken)
 }
 
