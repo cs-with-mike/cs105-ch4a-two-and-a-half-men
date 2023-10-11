@@ -6,6 +6,7 @@ nextChar <- ""
 token <- 0
 nextToken <- 0
 in_fp <- NULL
+indentNum <- 1
 
 LETTER <- "LETTER"
 DIGIT <- "DIGIT"
@@ -24,13 +25,31 @@ RIGHT_PAREN <- "RIGHT_PAREN"
 EOF <- "EOF"
 
 
+
+detailed_print <- function(entering) {
+  # If it is entering a derivation, increment the indent for formatting and print out the ">"
+    if(entering){
+      for(i in 1:indentNum){
+        cat(">")
+      }
+    # Otherwise, you're leaving a derivation
+    }else{
+      for(i in 1:indentNum){
+        cat("<")
+      }
+    }
+  
+}
+
 # Part B Functions
 # NEW STUFF
 
 
 # factor
 factor <- function() {
-  cat("Enter <factor>\n")
+  
+  detailed_print(TRUE)
+  cat(" factor\n")
   
   if (nextToken == "IDENT" || nextToken == "INT_LIT") {
     # Get the next token
@@ -42,19 +61,24 @@ factor <- function() {
       if (nextToken == "RIGHT_PAREN") {
         lex()
       } else {
-        error("Error: Expected right parenthesis")
+        cat("Error: Expected right parenthesis\n")
       }
     } else {
-      error("Error: Invalid token")
+      cat("Error: Invalid token\n")
     }
   }
   
-  cat("Exit <factor>\n")
+  detailed_print(FALSE)
+  
+  cat(" factor\n")
+  
 }
 
 # term
 term <- function() {
-  cat("Enter <term>\n")
+  
+  detailed_print(TRUE)
+  cat(" term\n")
   
   # First Factor
   factor()
@@ -64,12 +88,15 @@ term <- function() {
     factor()
   }
   
-  cat("Exit <term>\n")
+  detailed_print(FALSE)
+  cat(" term\n")
 }
 
 # expr
 expr <- function() {
-  cat("Enter <expr>\n")
+  
+  detailed_print(TRUE)
+  cat(" expr\n")
   
   # First term
   term()
@@ -79,7 +106,8 @@ expr <- function() {
     term()
   }
   
-  cat("Exit <expr>\n")
+  detailed_print(FALSE)
+  cat(" expr\n")
 }
 
 # Part A
@@ -201,8 +229,14 @@ lex <- function() {
     EOF = "EOF",
     UNKNOWN = "UNKNOWN"
   )
-  cat(paste("Next token is:", token_name, "| Next lexeme is", paste(lexeme, collapse = ""), "\n"))
+  
+  # Formatting printing to the console
+  for(i in 0:indentNum){
+    cat("=")
+  }
+  cat(sprintf(" %s [ %s ]\n", token_name, paste(lexeme, collapse = "")))
   expr()
+  
   return(nextToken)
 }
 
