@@ -1,10 +1,12 @@
-charClass <- ""
-lexeme <- c()
-nextChar <- ""
-token <- 0
-nextToken <- 0
-in_fp <- NULL
-depth <- 0
+charClass <- "" # the class of the current character
+lexeme <- c() # stores character of current lexeme
+nextChar <- "" # stores the next character in the input
+token <- 0 # current token
+nextToken <- 0 # next token (duh)
+in_fp <- NULL # pointer for input file
+depth <- 0 # depth of derivation
+
+# constants to represent different character classes and tokens as strings
 
 LETTER <- "LETTER"
 DIGIT <- "DIGIT"
@@ -21,7 +23,6 @@ DIV_OP <- "DIV_OP"
 LEFT_PAREN <- "LEFT_PAREN"
 RIGHT_PAREN <- "RIGHT_PAREN"
 EOF <- "EOF"
-
 
 # Part B Functions
 # NEW STUFF
