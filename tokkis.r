@@ -61,11 +61,7 @@ factor <- function() {
     if (nextToken == "LEFT_PAREN") {
       lex()
       expr()
-      if (nextToken == "RIGHT_PAREN") {
-        lex()
-      } else {
-        cat("Error: Expected right parenthesis\n")
-      }
+      
     } else {
       cat("Error: Invalid token\n")
     }
@@ -107,6 +103,12 @@ expr <- function() {
   while (nextToken == "ADD_OP" || nextToken == "SUB_OP") {
     lex()
     term()
+    
+  }
+  if (nextToken == "RIGHT_PAREN") {
+    lex()
+  } else {
+    cat("Error: Expected right parenthesis\n")
   }
   
   detailed_print(FALSE, -1)
@@ -239,7 +241,8 @@ lex <- function() {
   }
   # Printing out the tokens
   cat(sprintf(" %s [ %s ]\n", token_name, paste(lexeme, collapse = "")))
-  expr()
+  if (token_name != "EOF")
+    factor()
   return(nextToken)
 }
 
