@@ -26,7 +26,7 @@ EOF <- "EOF"
 # Part B Functions
 # NEW STUFF
 
-# This is a functon meant to print out the depth and derivation of each line
+# This is a function meant to print out the depth and derivation of each line
 detailed_print <- function(entering, depth_change) {
   
   # We want to increase if it's a positive change
