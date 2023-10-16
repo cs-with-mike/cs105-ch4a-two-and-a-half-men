@@ -81,17 +81,7 @@ factor <- function(){
       
       if (nextToken == RIGHT_PAREN){
         lex()
-        if (nextToken %in% c(ADD_OP, SUB_OP, MULT_OP, DIV_OP, EOF)) {
-          lex()
-        } else {
-          cat("Error: operator expected after file or EOF\n")
-          printData()
-      } 
-        if (prevChar == "(" && nextToken %in% c(ADD_OP, SUB_OP, MULT_OP, DIV_OP, EOF)) {
-          cat("Error: Invalid syntax - Operator or EOF immediately following a left parenthesis\n")
-          printData()
-        }
-       } else{
+      } else {
         cat("Error: Expected RIGHT_PAREN\tReceived -", nextToken, "\n")
         printData()
         break
