@@ -85,9 +85,9 @@ factor <- function(){
         cat("Error - invalid toki syntax at: \t", prevChar, "\n")
         return()
       }
-    } 
-  }
-
+  
+  detailed_print(FALSE, -1)
+  cat(" factor\n")
 }
 
 
