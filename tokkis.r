@@ -6,6 +6,7 @@ nextChar <- ""
 nextToken <- 0
 in_fp <- NULL
 char_iterator <- NULL
+prevChar <- ""
 
 depth <- 0
 
@@ -80,7 +81,17 @@ factor <- function(){
       
       if (nextToken == RIGHT_PAREN){
         lex()
-      } else {
+        if (nextToken %in% c(ADD_OP, SUB_OP, MULT_OP, DIV_OP, EOF)) {
+          lex()
+        } else {
+          cat("Error: operator expected after file or EOF\n")
+          printData()
+      } 
+        if (prevChar == "(" && nextToken %in% c(ADD_OP, SUB_OP, MULT_OP, DIV_OP, EOF)) {
+          cat("Error: Invalid syntax - Operator or EOF immediately following a left parenthesis\n")
+          printData()
+        }
+       } else{
         cat("Error: Expected RIGHT_PAREN\tReceived -", nextToken, "\n")
         printData()
         break
@@ -193,7 +204,7 @@ getChar <- function(){
     if(grepl("^\\s*$", char_iterator[1])){
       char_iterator <<- char_iterator[-1]
     }
-    
+    prevChar <<- nextChar
     # Gets the next character in the input string
     nextChar <<- char_iterator[1]
     # Removes that character from the input string
