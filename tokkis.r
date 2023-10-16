@@ -82,7 +82,7 @@ factor <- function(){
       if (nextToken == RIGHT_PAREN){
         lex()
       } else {
-        cat("Error - invalid toki syntax at:")
+        cat("Error - invalid toki syntax at: \t", prevChar, "\n")
         return()
       }
     } else {
