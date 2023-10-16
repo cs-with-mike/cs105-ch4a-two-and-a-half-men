@@ -84,7 +84,7 @@ factor <- function(){
       } else {
         cat("Error: Expected RIGHT_PAREN\tReceived -", nextToken, "\n")
         printData()
-        break
+        return()
       }
     } else {
       cat("Error: Expected - LEFT_PAREN\tReceived -", nextToken, "\n")
