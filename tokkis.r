@@ -82,8 +82,7 @@ factor <- function(){
       if (nextToken == RIGHT_PAREN){
         lex()
       } else {
-        cat("Error: Expected RIGHT_PAREN\tReceived -", nextToken, "\n")
-        printData()
+        cat("Error - invalid toki syntax at:")
         return()
       }
     } else {
