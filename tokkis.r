@@ -206,6 +206,7 @@ getChar <- function(){
     # This combines characters into a single lexeme by checking if the next class is the same as the previous
     while(whatClass(nextChar) != UNKNOWN && whatClass(nextChar) == whatClass(char_iterator[1])) {
       nextChar <<- paste0(nextChar, char_iterator[1])
+      prevChar <<- char_iterator[1]
       char_iterator <<- char_iterator[-1]
       if (length(char_iterator) == 0) break
     }
