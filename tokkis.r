@@ -282,7 +282,7 @@ if (file.exists(args[1])) {
   
   # If the file is empty, return EOF token; Otherwise, we can begin parsing
   if (file.size(args[1]) == 0) {
-    cat("EOF [ EOF ]\n> expr\n>> term\n>>> factor\n \ Error - invalid tokki")
+    cat("XYZ EOF [ EOF ]\n> expr\n>> term\n>>> factor\n Error - invalid tokki")
   } else {
     # Getting the all characters in the file and splitting them
     char_iterator <<- readLines(in_fp, warn = FALSE)
