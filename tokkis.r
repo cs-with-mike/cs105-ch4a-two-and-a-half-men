@@ -144,6 +144,8 @@ expr <- function(){
 # A simple lexical analyzer for arithmetic expressions
 lex <- function(){
   
+  prevChar <<- nextChar
+  
   # Switch Case
   switch(charClass,
          
@@ -193,7 +195,7 @@ getChar <- function(){
     if(grepl("^\\s*$", char_iterator[1])){
       char_iterator <<- char_iterator[-1]
     }
-    prevChar <<- nextChar
+    
     # Gets the next character in the input string
     nextChar <<- char_iterator[1]
     # Removes that character from the input string
