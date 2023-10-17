@@ -7,7 +7,6 @@ nextToken <- 0
 in_fp <- NULL
 char_iterator <- NULL
 prevChar <- ""
-stop <- FALSE
 
 depth <- 0
 
@@ -42,9 +41,8 @@ printData <- function() {
 
 # A function that formats the entering and exiting of <expr>, <term> and <factor>
 detailed_print <- function(entering, depth_change) {
-  if(stop == TRUE){
-    break
-  }
+
+
   # We want to increase if it's a positive change
   if(depth_change > 0){depth <<- depth + depth_change}
   
@@ -86,8 +84,7 @@ factor <- function(){
         lex()
       } else {
         cat("Error - invalid toki syntax at:", prevChar, "\n")
-        stop <- TRUE
-        return()
+        exit()
       }
     } else {
       cat("Error: Expected - LEFT_PAREN\tReceived -", nextToken, "\n")
