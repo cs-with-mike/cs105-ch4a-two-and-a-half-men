@@ -7,6 +7,7 @@ nextToken <- 0
 in_fp <- NULL
 char_iterator <- NULL
 prevChar <- ""
+stop <- FALSE
 
 depth <- 0
 
@@ -84,6 +85,7 @@ factor <- function(){
       } else {
         cat("Error - invalid toki syntax at:\t", prevChar, "\n")
         return()
+        stop()
       }
     } else {
       cat("Error: Expected - LEFT_PAREN\tReceived -", nextToken, "\n")
