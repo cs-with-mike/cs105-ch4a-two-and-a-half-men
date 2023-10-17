@@ -1,0 +1,26 @@
+ LEFT_PAREN [ ( ]
+> expr
+>> term
+>>> factor
+=== IDENT [ sum ]
+>>>> expr
+>>>>> term
+>>>>>> factor
+====== ADD_OP [ + ]
+<<<<<< factor
+<<<<< term
+==== INT_LIT [ 47 ]
+>>>>> term
+>>>>>> factor
+====== RIGHT_PAREN [ ) ]
+<<<<<< factor
+<<<<< term
+<<<< expr
+=== DIV_OP [ / ]
+<<< factor
+== IDENT [ total ]
+>>> factor
+=== EOF [ EOF ]
+<<< factor
+<< term
+< expr

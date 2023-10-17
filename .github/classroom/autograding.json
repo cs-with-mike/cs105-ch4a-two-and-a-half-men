@@ -1,0 +1,124 @@
+{
+  "tests": [
+    {
+      "name": "TC 0: Empty case",
+      "setup": "chmod 777 ./tokki.sh; git clone https://github.com/7imeout/GradingResources.git",
+      "run": "./tokki.sh ./GradingResources/cs105/00_empty.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 1: Single integer literal",
+      "setup": "",
+      "run": "./tokki.sh ./GradingResources/cs105/01_singleint.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/01_singleint.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 2: Sample given in the book",
+      "setup": "",
+      "run": "./tokki.sh ./GradingResources/cs105/02_sample.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/02_sample.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 3: Medium length sentence",
+      "setup": "",
+      "run": "./tokki.sh ./GradingResources/cs105/03_medium.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/03_medium.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 4: Extra long sentence",
+      "setup": "",
+      "run": "./tokki.sh ./GradingResources/cs105/04_xlarge.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/04_xlarge.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 5: \"Invalid\" sentence",
+      "setup": "",
+      "run": "./tokki.sh ./GradingResources/cs105/05_invalid.test.txt && python3 ./GradingResources/cs105/tokki.pyc ./GradingResources/cs105/05_invalid.test.txt > out.inst.txt && diff -iw out.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 6: [Parser] Empty case",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/00_empty.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/00_empty.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 7: [Parser] Single integer literal",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/01_singleint.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/01_singleint.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 8: [Parser] Sample given in the book",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/02_sample.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/02_sample.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 9: [Parser] Medium length sentence",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/03_medium.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/03_medium.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 10: [Parser] Extra long sentence",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/04_xlarge.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/04_xlarge.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    },
+    {
+      "name": "TC 11: [Parser] Invalid sentence",
+      "setup": "",
+      "run": "./tokkis.sh ./GradingResources/cs105/05_invalid.test.txt && echo \"tokkis.sh exit code: $?\" && python3 ./GradingResources/cs105/tokkis.pyc ./GradingResources/cs105/05_invalid.test.txt > out.inst.txt && diff -biwy out.parser.txt out.inst.txt && rm out.inst.txt",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": null
+    }
+  ]
+}
