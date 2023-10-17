@@ -84,7 +84,7 @@ factor <- function(){
         lex()
       } else {
         cat("Error - invalid toki syntax at:", prevChar, "\n")
-        exit()
+        break
       }
     } else {
       cat("Error: Expected - LEFT_PAREN\tReceived -", nextToken, "\n")
