@@ -89,7 +89,7 @@ factor <- function(){
       } else {
         cat("Error - invalid toki syntax at:", prevChar, "\n")
         breakCheck <- TRUE
-        break
+        return()
       }
     } else {
       cat("Error: Expected - LEFT_PAREN\tReceived -", nextToken, "\n")
