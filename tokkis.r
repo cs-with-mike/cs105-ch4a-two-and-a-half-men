@@ -67,7 +67,7 @@ detailed_print <- function(entering, depth_change) {
 #     <factor> -> id | int_constant | ( <expr> )
 factor <- function(){
   if (breakCheck == TRUE){
-    stop()
+    break
   }
   detailed_print(TRUE, 1)
   cat(" factor\n")
@@ -108,7 +108,7 @@ factor <- function(){
 #     <term> -> <factor> { (* | /) <factor> }
 term <- function(){
   if (breakCheck == TRUE){
-    stop()
+    break
   }
   detailed_print(TRUE, 1)
   cat(" term\n")
@@ -132,7 +132,7 @@ term <- function(){
 #     <expr> -> <term> { (+ | -) <term> }
 expr <- function(){
   if (breakCheck == TRUE){
-    stop()
+    break
   }
   
   detailed_print(TRUE, 1)
